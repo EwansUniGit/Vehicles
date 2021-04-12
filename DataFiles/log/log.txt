@@ -116,3 +116,29 @@ java.lang.IllegalArgumentException: Collection is null or empty!
 
 **********************
 
+Mon, April 12, 2021. 15:40:11
+java.lang.NullPointerException: Cannot invoke "Vehicle.toString()" because the return value of "AppLauncher.getByVin(String)" is null
+	at AppLauncher.search(AppLauncher.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at uod.gla.menu.MenuBuilder.displayMenu(MenuBuilder.java:244)
+	at uod.gla.menu.MenuBuilder.displayMenu(MenuBuilder.java:102)
+	at AppLauncher.main(AppLauncher.java:35)
+
+**********************
+
+Mon, April 12, 2021. 15:41:55
+java.lang.NullPointerException: Cannot invoke "Vehicle.toString()" because the return value of "AppLauncher.getByVin(String)" is null
+	at AppLauncher.search(AppLauncher.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at uod.gla.menu.MenuBuilder.displayMenu(MenuBuilder.java:244)
+	at uod.gla.menu.MenuBuilder.displayMenu(MenuBuilder.java:102)
+	at AppLauncher.main(AppLauncher.java:35)
+
+**********************
+

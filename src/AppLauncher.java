@@ -2,15 +2,15 @@ import uod.gla.menu.Finalisable;
 import uod.gla.io.File;
 import uod.gla.menu.MenuBuilder;
 import uod.gla.menu.MenuItem;
-import java.util.HashMap;
+
+import java.util.*;
 import java.io.Serializable;
-import java.util.ArrayList;
+
+import uod.gla.util.Reader;
 
 import java.util.List;
-import java.util.Locale;
+import java.util.stream.Collectors;
 
-import uod.gla.util.CollectionUtils;
-import uod.gla.util.Reader;
 
 
 
@@ -20,16 +20,17 @@ public class AppLauncher implements Finalisable {
     private static AppLauncher appObject = new AppLauncher();
     private static VehicleFactory factory = new VehicleFactory();
 
+
     public static void main(String[] args) {
         appObject.createData();
-        List<Vehicle> retrievedVehicleList = vehicleListFile.<List<Vehicle>>retrieve(true);
+        List<Vehicle> retrievedVehicleList = vehicleListFile.retrieve(true);
         if (retrievedVehicleList != null) {
             vehicleList = retrievedVehicleList;
         }
 
         MenuItem d = new MenuItem("D", "Display all available vehicle records", appObject, "display");
         MenuItem c = new MenuItem("C", "Create a new Vehicle Record", appObject, "create" );
-        MenuItem s = new MenuItem("L", "Search existing records", appObject, "list");
+        MenuItem s = new MenuItem("L", "Search existing records", appObject, "search");
         MenuItem e = new MenuItem("E", "Add or Remove options from existing vehicles", appObject, "edit");
         MenuItem del = new MenuItem("del", "Delete a Record", appObject, "remove");
         MenuBuilder.displayMenu(appObject, d, c, s, e, del);
@@ -40,11 +41,37 @@ public class AppLauncher implements Finalisable {
 
 
     private HashMap<String, Vehicle> MapVins(List<Vehicle> v) {
-        HashMap<String, Vehicle> vinMap = new HashMap<String, Vehicle>();
-        for (int i = 0; i < v.size(); i++) {
-            vinMap.put(v.get(i).getVin() + v.get(i).describe(), v.get(i));
+        HashMap<String, Vehicle> vinMap = new HashMap<>();
+        for (Vehicle vehicle : v) {
+            vinMap.put(vehicle.getVin() + vehicle.describe(), vehicle);
         }
         return vinMap;
+    }
+    public static void search() {
+        String key = Reader.readLine("Please enter a search key of at least 3 characters: ").toUpperCase();
+        if (key.length() >2 && key.length() < 18) {
+            if (getByVin(key) != null) {
+                System.out.println(getByVin(key).toString());
+            }
+        }
+        else {
+            System.out.print("Please enter a search key of appropriate length.  \n");
+        }
+
+    }
+
+    private static Vehicle getByVin(String key) {
+        List<Vehicle> results = vehicleList.stream()
+                .filter(a -> Objects.equals(a.getVin().contains(key), true))
+                .collect(Collectors.toList());
+        if (results == null || results.isEmpty()) {
+            System.out.println("No matches found.");
+            return null;
+        }
+        HashMap<String, Vehicle> resultMap = appObject.MapVins(results);
+        String match = Reader.readObject("Please select a vehicle from the list", resultMap.keySet());
+        return resultMap.get(match);
+
     }
 
     public static void remove() {
@@ -118,6 +145,8 @@ public class AppLauncher implements Finalisable {
         vehicleListFile.save((Serializable)vehicleList);
 
     }
+
+
 
 
     //This method should not be needed as the data has been saved in Datafiles/data/inventoryFile, included here for ease of set-up in case of issues

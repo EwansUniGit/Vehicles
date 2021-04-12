@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VehicleFactory {
+    
     public static List<String> vins = new ArrayList<>();
     private String makeVin() {
         String vin = "";
