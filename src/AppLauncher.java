@@ -18,7 +18,7 @@ public class AppLauncher implements Finalisable {
     private static List<Vehicle> vehicleList = new ArrayList<>();
     private static File vehicleListFile = new File("data", "inventoryFile");
     private static AppLauncher appObject = new AppLauncher();
-    private static VehicleFactory factory = new VehicleFactory();
+    private static VehicleFactory builder = new VehicleFactory();
 
 
     public static void main(String[] args) {
@@ -43,10 +43,27 @@ public class AppLauncher implements Finalisable {
     private HashMap<String, Vehicle> MapVins(List<Vehicle> v) {
         HashMap<String, Vehicle> vinMap = new HashMap<>();
         for (Vehicle vehicle : v) {
-            vinMap.put(vehicle.getVin() + vehicle.describe(), vehicle);
+            vinMap.put(vehicle.getVin(), vehicle);
         }
         return vinMap;
     }
+
+    private String makeVin() {
+        String vin = "";
+        VinGenerator gen = new VinGenerator();
+        while (true) {
+            String _vin = gen.generate();
+            if (!MapVins(vehicleList).keySet().contains(_vin)) {
+                vin = _vin;
+
+                break;
+            }
+        }
+        return vin;
+    }
+
+
+
     public static void search() {
         String key = Reader.readLine("Please enter a search key of at least 3 characters: ").toUpperCase();
         if (key.length() >2 && key.length() < 18) {
@@ -87,6 +104,7 @@ public class AppLauncher implements Finalisable {
         Vehicle vehicle = vinMap.get(vehicleKey);
         String optionKey = Reader.readObject("Available options for selected vehicle- Select which to edit. \n" + vehicle.outputStringOptions(), vehicle.Options.keySet());
         boolean option = vehicle.Options.get(optionKey);
+        System.out.println(vehicle.outputStringOptions());
         vehicle.Options.put(optionKey, vehicle.editOption(option));
     }
     public static void list() {
@@ -98,30 +116,46 @@ public class AppLauncher implements Finalisable {
 
 
 
-    public static void create() {
+    public static Vehicle create() {
         Vehicle vehicle;
-
+        String vin = appObject.makeVin();
+        boolean sat = false, park = false , tow = false, rack = false;
         Vehicle.Type type = Reader.readEnum("Please select which type of vehicle to create: ", Vehicle.Type.class);
+
+        Vehicle.Make mak = Reader.readEnum("Please select a make: ", Vehicle.Make.class);
+        String mod = Reader.readName("Model: ");
+        int year = Reader.readInt("Year of construction: ", Vehicle.MIN_YEAR, Vehicle.MAX_YEAR);
+        int mil = Reader.readInt("Mileage: ", 0, 999999);
+        Vehicle.Colour col = Reader.readEnum("Colour: ", Vehicle.Colour.class);
+        Vehicle.Gearbox gea = Reader.readEnum("Gearbox: ", Vehicle.Gearbox.class);
+
+        if (type != Vehicle.Type.MOTORCYCLE){
+             sat = Reader.readBoolean("Satnav? ");
+             park = Reader.readBoolean("Parking Sensor? ");
+             tow = Reader.readBoolean("Towbar? ");
+             rack = Reader.readBoolean("Roofrack?");
+        }
 
         switch (type) {
             case ESTATE: {
-                vehicle = factory.getVehicle("ESTATE");
+                boolean seat = Reader.readBoolean("Third Row Seat? ");
+                return new Estate(mak, mod, col, vin, year, mil, gea, sat, park, tow, rack, seat);
                 break;
             }
             case HATCHBACK: {
-                vehicle = factory.getVehicle("HATCHBACK");
+                return new Hatchback(mak, mod, col, vin, year, mil, gea, sat, park, tow, rack);
                 break;
             }
             case MOTORCYCLE: {
-                vehicle = factory.getVehicle("MOTORCYCLE");
+                vehicle = builder.getVehicle("MOTORCYCLE");
                 break;
             }
             case SALOON: {
-                vehicle = factory.getVehicle("SALOON");
+                vehicle = builder.getVehicle("SALOON");
                 break;
             }
             case SUV: {
-                vehicle = factory.getVehicle("SUV");
+                vehicle = builder.getVehicle("SUV");
                 break;
             }
             default: {

@@ -33,7 +33,7 @@ public abstract class Car extends Vehicle {
     public boolean editOption(boolean option) {
         super.editOption(option);
         if (option == true) {
-            System.out.print("This car is already fitted with that option.");
+            System.out.print("This car is already fitted with that option. \n");
         }
         return true;
     }

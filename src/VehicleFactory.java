@@ -3,22 +3,10 @@ import uod.gla.util.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VehicleFactory {
+public class VehicleBuilder {
     
     public static List<String> vins = new ArrayList<>();
-    private String makeVin() {
-        String vin = "";
-        VinGenerator gen = new VinGenerator();
-        while (true) {
-            String _vin = gen.generate();
-            if (!vins.contains(_vin)) {
-                vin = _vin;
-                vins.add(vin);
-                break;
-            }
-        }
-        return vin;
-    }
+
 
     public Vehicle getVehicle(String vehicleType) {
 

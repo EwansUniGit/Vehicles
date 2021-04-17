@@ -119,7 +119,7 @@ public abstract class Vehicle implements Serializable {
     }
 
     public boolean editOption(boolean option) {
-        System.out.println(outputStringOptions());
+
         return false;
     }
 
