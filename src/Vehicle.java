@@ -9,8 +9,6 @@ public abstract class Vehicle implements Serializable {
     private final Gearbox gearbox;
     private Colour vehicleColour;
     private int mileage;
-    public static final int MIN_YEAR = 1900;
-    public static final int MAX_YEAR = Calendar.getInstance().get(Calendar.YEAR);
     protected HashMap<String, Boolean> Options;
     protected enum Type {
         ESTATE, HATCHBACK, MOTORCYCLE, SALOON, SUV
@@ -95,7 +93,7 @@ public abstract class Vehicle implements Serializable {
 
     public String describe() {
         Class c = getClass();
-        String describe = " - A " + getYear() + " " + sentenceCase(getMake().toString()) + " " + getModel() + " " + c.getSimpleName() + " in " + sentenceCase(getVehicleColour().toString())+ "." ;
+        String describe =  getYear() + " " + sentenceCase(getMake().toString()) + " " + getModel() + " " + c.getSimpleName() + " in " + sentenceCase(getVehicleColour().toString());
         return describe;
     }
 

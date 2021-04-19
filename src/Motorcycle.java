@@ -12,7 +12,7 @@ public class Motorcycle extends Vehicle {
 
     @Override
     public boolean editOption(boolean option) {
-        super.editOption(option);
+
         option = !option;
         return option;
     }

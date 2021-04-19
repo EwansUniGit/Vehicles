@@ -142,3 +142,32 @@ java.lang.NullPointerException: Cannot invoke "Vehicle.toString()" because the r
 
 **********************
 
+Sun, April 18, 2021. 19:49:46
+java.lang.IllegalArgumentException: Invalid name format!
+	at uod.gla.util.Reader.readName(Reader.java:491)
+	at AppLauncher.create(AppLauncher.java:170)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at uod.gla.menu.MenuBuilder.displayMenu(MenuBuilder.java:244)
+	at uod.gla.menu.MenuBuilder.displayMenu(MenuBuilder.java:102)
+	at AppLauncher.main(AppLauncher.java:44)
+
+**********************
+
+Sun, April 18, 2021. 22:02:27
+java.lang.IllegalArgumentException: Invalid integer format!
+	at uod.gla.util.Reader.readInt(Reader.java:196)
+	at uod.gla.util.Reader.readObject(Reader.java:702)
+	at AppLauncher.edit(AppLauncher.java:120)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at uod.gla.menu.MenuBuilder.displayMenu(MenuBuilder.java:244)
+	at uod.gla.menu.MenuBuilder.displayMenu(MenuBuilder.java:102)
+	at AppLauncher.main(AppLauncher.java:44)
+
+**********************
+

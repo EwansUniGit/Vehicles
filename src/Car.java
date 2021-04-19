@@ -1,6 +1,3 @@
-import uod.gla.util.Reader;
-
-import java.util.HashMap;
 
 public abstract class Car extends Vehicle {
 
